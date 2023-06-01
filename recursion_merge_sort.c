@@ -4,7 +4,7 @@
 
 void print_array(int array[], int start, int end);
 void merge_sort(int unsorted[], int sorted[], int start_index, int end_index);
-void merge_left_right(int left[], int right[], int start_index, int mid_index, int end_index);
+void merge_left_right(int unsorted[], int sorted[], int start_index, int mid_index, int end_index);
 void copy_array(int from[], int to[], int start, int end);
 
 int main(void)
