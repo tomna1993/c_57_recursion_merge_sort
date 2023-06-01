@@ -49,19 +49,6 @@ void merge_sort(int unsorted[], int sorted[], int start_index, int end_index)
     return;
 }
 
-void print_array(int array[], int start, int end)
-{
-    printf ("[");
-
-    for (int i = start; i <= end; i++)
-    {
-        printf ("%i ", array[i]);
-    }
-    printf ("]\n");
-
-    return;
-}
-
 void merge_left_right(int unsorted[], int sorted[], int start_index, int mid_index, int end_index)
 {
     int mid = mid_index;
@@ -108,6 +95,19 @@ void copy_array(int from[], int to[], int start, int end)
     {
         to[i] = from[i]; 
     }
+
+    return;
+}
+
+void print_array(int array[], int start, int end)
+{
+    printf ("[");
+
+    for (int i = start; i <= end; i++)
+    {
+        printf ("%i ", array[i]);
+    }
+    printf ("]\n");
 
     return;
 }
