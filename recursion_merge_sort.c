@@ -2,10 +2,10 @@
 
 #define ARRAY_LENGTH 11
 
-void copy_array(int from[], int to[], int start, int end);
+void print_array(int array[], int start, int end);
 void merge_sort(int unsorted[], int sorted[], int start_index, int end_index);
 void merge_left_right(int left[], int right[], int start_index, int mid_index, int end_index);
-void print_array(int array[], int start, int end);
+void copy_array(int from[], int to[], int start, int end);
 
 int main(void)
 {
@@ -19,17 +19,9 @@ int main(void)
 
     merge_sort(unsorted_numbers, sorted_numbers, 0, ARRAY_LENGTH - 1);
 
+    print_array(sorted_numbers, 0, ARRAY_LENGTH - 1);
+
     return 0;
-}
-
-void copy_array(int from[], int to[], int start, int end)
-{
-    for (int i = start; i <= end; i++)
-    {
-        to[i] = from[i]; 
-    }
-
-    return;
 }
 
 void merge_sort(int unsorted[], int sorted[], int start_index, int end_index)
@@ -101,8 +93,21 @@ void merge_left_right(int unsorted[], int sorted[], int start_index, int mid_ind
 
     copy_array(sorted, unsorted, start_index, end_index);
 
-    printf ("Sorted:\n");
-    print_array(unsorted, start_index, end_index);
+    // printf ("Sorted:\n");
+    // print_array(sorted, start_index, end_index);
+
+    // printf ("Unsorted:\n");
+    // print_array(unsorted, start_index, end_index);
+
+    return;
+}
+
+void copy_array(int from[], int to[], int start, int end)
+{
+    for (int i = start; i <= end; i++)
+    {
+        to[i] = from[i]; 
+    }
 
     return;
 }
