@@ -78,6 +78,8 @@ void merge_left_right(int unsorted[], int sorted[], int start_index, int mid_ind
         }
     }
 
+    // Need to copy the sorted values from the sorted array to the unsorted
+    // It is important to do this step because in merging the unsorted array is used
     copy_array(sorted, unsorted, start_index, end_index);
 
     // printf ("Sorted:\n");
