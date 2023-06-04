@@ -55,7 +55,7 @@ void merge_left_right(int unsorted[], int sorted[], int start_index, int mid_ind
     int mid = mid_index;
     int start = start_index;
 
-    for (int i = start; i <= end_index; i++)
+    for (int i = start_index; i <= end_index; i++)
     {
         if (mid > end_index)
         {
