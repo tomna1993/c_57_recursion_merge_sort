@@ -2,71 +2,84 @@
 
 #define ARRAY_LENGTH 11
 
-void print_array(int array[], int start, int end);
-void merge_sort(int unsorted[], int sorted[], int start_index, int end_index);
-void merge_left_right(int unsorted[], int sorted[], int start_index, int mid_index, int end_index);
-void copy_array(int from[], int to[], int start, int end);
+void print_array(int array[], int array_length);
+void merge_sort(int array[], int array_length);
+void sort_halves(int unsorted[], int sorted[], int start_index, int end_index);
+void merge_halves(int unsorted[], int sorted[], int start_index, int mid_index, int end_index);
+void copy_array(int from[], int to[], int array_length);
 
 int main(void)
 {
     int unsorted_numbers[ARRAY_LENGTH] = {5, 7, 6, 3, 1, 9, 0, 2, 10, 4, 8}; 
 
-    int sorted_numbers[ARRAY_LENGTH];
+    print_array(unsorted_numbers, ARRAY_LENGTH);
 
-    copy_array(unsorted_numbers, sorted_numbers, 0, ARRAY_LENGTH - 1);
+    // The sorted array will be placed back into unsorted array
+    merge_sort(unsorted_numbers, ARRAY_LENGTH);
 
-    print_array(unsorted_numbers, 0, ARRAY_LENGTH - 1);
-
-    merge_sort(unsorted_numbers, sorted_numbers, 0, ARRAY_LENGTH - 1);
-
-    print_array(sorted_numbers, 0, ARRAY_LENGTH - 1);
+    print_array(unsorted_numbers, ARRAY_LENGTH);
 
     return 0;
 }
 
-void merge_sort(int unsorted[], int sorted[], int start_index, int end_index)
-{
-    // Define base-case / exit condition
-    // Consider list already sorted
-    if (end_index - start_index < 1)
-    {
-        return;
-    }
+void merge_sort(int array[], int array_length)
+{  
+    int unsorted[array_length];
 
-    int mid = (start_index + end_index) / 2;
+    // The unsorted array (work array) must contain the same elements as
+    // the array we want to sort
+    copy_array(array, unsorted, array_length);
 
-    // Sort left
-    // print_array(unsorted, start_index, mid);
-    merge_sort(unsorted, sorted, start_index, mid);
-
-    // Sort rigth
-    // print_array(unsorted, mid + 1, end_index);
-    merge_sort(unsorted, sorted, mid + 1, end_index);
-
-    // Merge left and right
-    merge_left_right(unsorted, sorted, start_index, mid + 1, end_index);
+    sort_halves(unsorted, array, 0, array_length - 1);
 
     return;
 }
 
-// Merge sorted halves
-void merge_left_right(int unsorted[], int sorted[], int start_index, int mid_index, int end_index)
+
+void sort_halves(int unsorted[], int sorted[], int start_index, int end_index)
+{
+    // Define base-case / exit condition
+    // Consider list already sorted or list has just one number
+    if (start_index >= end_index)
+    {
+        return;
+    }
+
+    int mid_index = (start_index + end_index) / 2;
+
+    // Sort left source
+    sort_halves(unsorted, sorted, start_index, mid_index);
+
+    // Sort rigth source
+    sort_halves(unsorted, sorted, mid_index + 1, end_index);
+
+    // Merge left and right back into unsorted array
+    merge_halves(unsorted, sorted, start_index, mid_index + 1, end_index);
+
+    return;
+}
+
+void merge_halves(int unsorted[], int sorted[], int start_index, int mid_index, int end_index)
 {
     int mid = mid_index;
     int start = start_index;
 
     for (int i = start_index; i <= end_index; i++)
     {
+        // Left source is already sorted, copy the right source 
         if (mid > end_index)
         {
             mid = start;
         }
 
+        // Right source is already sorted, copy the left source
         if (start >= mid_index)
         {
             start = mid; 
         }
 
+        // Always check unsorted list, later we must copy the sorted array
+        // back into the unsorted
         if (unsorted[start] < unsorted[mid])
         {
             sorted[i] = unsorted[start];
@@ -79,22 +92,15 @@ void merge_left_right(int unsorted[], int sorted[], int start_index, int mid_ind
         }
     }
 
-    // Need to copy the sorted values from the sorted array to the unsorted
-    // It is important to do this step because in merging the unsorted array is used
-    copy_array(sorted, unsorted, start_index, end_index);
-
-    // printf ("Sorted:\n");
-    // print_array(sorted, start_index, end_index);
-
-    // printf ("Unsorted:\n");
-    // print_array(unsorted, start_index, end_index);
+    // Copy the sorted part of the list back to unsorted
+    copy_array(sorted, unsorted, end_index + 1);
 
     return;
 }
 
-void copy_array(int from[], int to[], int start, int end)
+void copy_array(int from[], int to[], int array_length)
 {
-    for (int i = start; i <= end; i++)
+    for (int i = 0; i < array_length; i++)
     {
         to[i] = from[i]; 
     }
@@ -102,15 +108,13 @@ void copy_array(int from[], int to[], int start, int end)
     return;
 }
 
-void print_array(int array[], int start, int end)
+void print_array(int array[], int array_length)
 {
-    printf ("[");
-
-    for (int i = start; i <= end; i++)
+    for (int i = 0; i < array_length; i++)
     {
         printf ("%i ", array[i]);
     }
-    printf ("]\n");
+    printf ("\n");
 
     return;
 }
