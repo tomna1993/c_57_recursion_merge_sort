@@ -49,6 +49,7 @@ void merge_sort(int unsorted[], int sorted[], int start_index, int end_index)
     return;
 }
 
+// Merge sorted halves
 void merge_left_right(int unsorted[], int sorted[], int start_index, int mid_index, int end_index)
 {
     int mid = mid_index;
