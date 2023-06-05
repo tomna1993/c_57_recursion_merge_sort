@@ -6,7 +6,7 @@ void print_array(int array[], int array_length);
 void merge_sort(int array[], int array_length);
 void sort_halves(int unsorted[], int sorted[], int start_index, int end_index);
 void merge_halves(int unsorted[], int sorted[], int start_index, int mid_index, int end_index);
-void copy_array(int from[], int to[], int array_length);
+void copy_array(int from[], int to[], int start, int end);
 
 int main(void)
 {
@@ -28,7 +28,7 @@ void merge_sort(int array[], int array_length)
 
     // The unsorted array (work array) must contain the same elements as
     // the array we want to sort
-    copy_array(array, unsorted, array_length);
+    copy_array(array, unsorted, 0, array_length);
 
     sort_halves(unsorted, array, 0, array_length - 1);
 
@@ -96,14 +96,14 @@ void merge_halves(int unsorted[], int sorted[], int start_index, int mid_index, 
     }
 
     // Copy the sorted part of the list back to unsorted
-    copy_array(sorted, unsorted, end_index + 1);
+    copy_array(sorted, unsorted, 0, end_index + 1);
 
     return;
 }
 
-void copy_array(int from[], int to[], int array_length)
+void copy_array(int from[], int to[], int start, int end)
 {
-    for (int i = 0; i < array_length; i++)
+    for (int i = start; i < end; i++)
     {
         to[i] = from[i]; 
     }
