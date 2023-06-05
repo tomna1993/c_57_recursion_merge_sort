@@ -61,35 +61,38 @@ void sort_halves(int unsorted[], int sorted[], int start_index, int end_index)
 
 void merge_halves(int unsorted[], int sorted[], int start_index, int mid_index, int end_index)
 {
-    int mid = mid_index;
+    int count = start_index;
     int start = start_index;
 
-    for (int i = start_index; i <= end_index; i++)
+    int mid = mid_index;
+
+    while (start < mid_index && mid <= end_index)
     {
-        // Left source is already sorted, copy the right source 
-        if (mid > end_index)
-        {
-            mid = start;
-        }
-
-        // Right source is already sorted, copy the left source
-        if (start >= mid_index)
-        {
-            start = mid; 
-        }
-
         // Always check unsorted list, later we must copy the sorted array
         // back into the unsorted
-        if (unsorted[start] < unsorted[mid])
+        if (unsorted[start] <= unsorted[mid])
         {
-            sorted[i] = unsorted[start];
+            sorted[count] = unsorted[start];
             start++;
         }
         else
         {
-            sorted[i] = unsorted[mid];
+            sorted[count] = unsorted[mid];
             mid++;
         }
+
+        count++;
+    }
+
+    //
+    while (start < mid_index) 
+    {
+        sorted[count++] = unsorted[start++];  
+    }
+
+    while (mid <= end_index)
+    {
+        sorted[count++] = unsorted[mid++];
     }
 
     // Copy the sorted part of the list back to unsorted
